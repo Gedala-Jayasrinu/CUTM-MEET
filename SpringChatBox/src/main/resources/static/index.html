@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="CSS/Style.css" rel="stylesheet">
+   <style>
+	#messageInput {
+	           width: 30%;
+	           padding: 10px;
+	       }
+		   #messages {
+		   	         height: 200px;
+		   	         overflow-y:scroll;
+		   	         border: 1px solid #ccc;
+		   	         padding: 10px;
+		   		   background-color: floralwhite;
+		   	     }
+		          
+   </style>
+</head>
+<body>
+	
+    <div>
+		<img src="Images/cutm.jpg.jpg" width="100" height="100">
+        <h2>Chat Box</h2>
+
+        <!-- Username Input Section -->
+        <div id="usernameSection">
+            <input type="text" id="usernameInput" placeholder="Enter your name..." />
+            <button onclick="connect()">Join Chat</button>
+        </div>
+
+        <!-- Chat Section -->
+        <div id="chatSection" style="display: none;">
+            <div id="messages"></div>
+            <input type="text" id="messageInput" placeholder="Type a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script>
+        var stompClient = null;
+        var username = null;
+
+        // Connect to WebSocket after entering username
+        function connect() {
+            username = document.getElementById("usernameInput").value.trim();
+            if (username) {
+                // Show the chat section and hide the username section
+                document.getElementById("usernameSection").style.display = 'none';
+                document.getElementById("chatSection").style.display = 'block';
+
+                // Connect to WebSocket
+                var socket = new SockJS('/chat-websocket');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    console.log('Connected: ' + frame);
+
+                    // Subscribe to the public topic
+                    stompClient.subscribe('/topic/public', function (message) {
+                        showMessage(JSON.parse(message.body));
+                    });
+
+                    // Add user to chat
+                    stompClient.send("/app/chat.addUser", {}, JSON.stringify({
+                        sender: username,
+                        type: "JOIN"
+                    }));
+
+                    // Notify the server when the user leaves
+                    window.addEventListener("beforeunload", function () {
+                        stompClient.send("/app/chat.removeUser", {}, JSON.stringify({
+                            sender: username,
+                            type: "LEAVE"
+                        }));
+                    });
+                });
+            } else {
+                alert("Please enter a valid name!");
+            }
+        }
+
+        // Send message to WebSocket
+        function sendMessage() {
+            var messageContent = document.getElementById("messageInput").value;
+            if (messageContent && stompClient) {
+                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+                    sender: username,  // Send message with the entered username
+                    content: messageContent,
+                    type: "CHAT"
+                }));
+                document.getElementById("messageInput").value = '';  // Clear the input field
+            }
+        }
+
+        // Display messages in the chat
+        function showMessage(message) {
+            var messageElement = document.createElement('p');
+            if (message.type === 'CHAT') {
+                messageElement.textContent = message.sender + ": " + message.content;
+            } else if (message.type === 'JOIN') {
+                messageElement.textContent = message.content;
+            } else if (message.type === 'LEAVE') {
+                messageElement.textContent = message.content;
+            }
+            document.getElementById("messages").appendChild(messageElement);
+        }
+    </script>
+</body>
+</html>
