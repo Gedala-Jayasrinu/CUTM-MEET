@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>Create Meeting Link</h2>
+  <form (ngSubmit)="createLink()" class="form">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" [(ngModel)]="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+    </div>
+
+    <button type="submit" class="submit-btn">Create Link</button>
+  </form> 
+
+  <div *ngIf="uniqueLink" class="result">
+    <p>Generated Link: <a [href]="'http://localhost:8080/' + uniqueLink" target="_blank" class="link">{{ uniqueLink }}</a></p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+</div>

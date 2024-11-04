@@ -1,0 +1,21 @@
+<!-- join-meeting.component.html -->
+
+<div class="join-meeting">
+  <h2>Join Meeting</h2>
+  
+  <div>
+    <h3>By Title and Password</h3>
+    <input type="text" [(ngModel)]="title" placeholder="Meeting Title" />
+    <input type="password" [(ngModel)]="password" placeholder="Password" />
+    <button (click)="joinByTitleAndPassword()">Join Meeting</button>
+  </div>
+
+  <div>
+    <h3>By Link</h3>
+    <input type="text" [(ngModel)]="link" placeholder="Meeting Link" />
+    <button (click)="joinByLink()">Join Meeting</button>
+  </div>
+
+  <div *ngIf="message" class="success-message">{{ message }}</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>

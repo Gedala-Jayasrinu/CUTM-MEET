@@ -1,0 +1,32 @@
+/* styles.css or the component's CSS file */
+
+.meeting-options {
+  text-align: center; /* Center the heading and button */
+  margin: 40px 0; /* Space above and below the section */
+}
+
+.meeting-options h2 {
+  font-size: 24px; /* Larger font size for the heading */
+  color: #333; /* Dark text color */
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+.meeting-options button {
+  padding: 12px 20px; /* Padding for button */
+  font-size: 16px; /* Font size for button text */
+  background-color: #28a745; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition effects */
+}
+
+.meeting-options button:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+.meeting-options button:active {
+  transform: scale(0.95); /* Slightly shrink button when clicked */
+}
