@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Meeting Room</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .meeting-room {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .video-screen {
+            flex: 1;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+            padding: 10px;
+        }
+        .participant, .chatbox {
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chatbox {
+            height: 250px; /* Set height for chatbox */
+            overflow-y: auto; /* Enable scrolling */
+        }
+        .bottom-buttons {
+            padding: 10px;
+            margin-left: 200px;
+        }
+        .bottom-buttons button {
+            margin: 0 5px;
+        }
+        .chat-input {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid meeting-room">
+    <div class="row flex-grow-1">
+        <div class="col-md-9 video-screen">
+            Video Screen
+        </div>
+        <div class="col-md-3 left-panel">
+            <div class="participant">
+                <h5>Participants</h5>
+                <ul>
+                    <li>Participant 1</li>
+                    <li>Participant 2</li>
+                    <li>Participant 3</li>
+                </ul>
+            </div>
+            <div class="chatbox">
+                <h5>Chat</h5>
+                <div id="messages">
+                    <p><strong>Participant 1:</strong> Hello!</p>
+                    <p><strong>Participant 2:</strong> Hi there!</p>
+                    <p><strong>Participant 3:</strong> Good to see you all!</p>
+                </div>
+                <input type="text" class="chat-input" placeholder="Type your message..." />
+            </div>
+        </div>
+    </div>
+    <div class="bottom-buttons">
+
+
+ 
+         
+        <button class="btn btn-primary"><i class="fas fa-video"></i> Start Video</button>
+        <button class="btn btn-secondary"><i class="fas fa-microphone"></i> Mute</button>
+        <button class="btn btn-danger"><i class="fas fa-phone-alt"></i> End Call</button>
+        <button class="btn btn-success"><i class="fas fa-comments"></i> Chat</button>
+        <button class="btn btn-info"><i class="fas fa-desktop"></i> Screen Share</button>
+        <button class="btn btn-warning"><i class="fas fa-paint-brush"></i> Whiteboard</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
